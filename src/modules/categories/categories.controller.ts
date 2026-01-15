@@ -3,9 +3,10 @@ import { categoriesService } from "./categories.services";
 
 const createCategories = async (req: Request, res: Response) => {
     try {
-        const { categoryName } = req.body;
+        const { categoryName, color } = req.body;
         const newCategory = await categoriesService.createCategories(
-            categoryName
+            categoryName,
+            color
         );
         res.status(201).json({
             message: "Category created successfully",
@@ -37,10 +38,11 @@ const getAllCategories = async (req: Request, res: Response) => {
 const updateCategories = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { categoryName } = req.body;
+        const { categoryName, color } = req.body;
         const updatedCategory = await categoriesService.updateCategoriesbyId(
             id as string,
-            categoryName
+            categoryName,
+            color
         );
         res.status(200).json({
             message: "Category updated successfully",

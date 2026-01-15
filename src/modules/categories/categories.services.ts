@@ -1,9 +1,10 @@
 import { prisma } from "../../lib/prisma";
 
-const createCategories = async (name: string) => {
+const createCategories = async (name: string, color?: string) => {
     const newCategory = await prisma.category.create({
         data: {
             name,
+            ...(color && { color }),
         },
     });
 
@@ -15,10 +16,14 @@ const getAllCategories = async () => {
     return categories;
 };
 
-const updateCategoriesbyId = async (id: string, name: string) => {
+const updateCategoriesbyId = async (
+    id: string,
+    name?: string,
+    color?: string
+) => {
     const updatedCategory = await prisma.category.update({
         where: { id },
-        data: { name },
+        data: { ...(name && { name }), ...(color && { color }) },
     });
 
     return updatedCategory;
